@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               String        @id @default(uuid())
+  password         String
+  email            String        @unique
+  default_currency CurrencyCode
+  created_at       DateTime      @default(now())
+  updated_at       DateTime      @updatedAt
+  accounts         Account[]
+  categories       Category[]
+  transactions     Transaction[]
+  budgets          Budget[]
+  goals            Goal[]
+}
+
+model Account {
+  id              String       @id @default(uuid())
+  user_id         String
+  name            String
+  type            AccountType
+  currency        CurrencyCode
+  initial_balance Decimal      @default(0)
+  is_archived     Boolean      @default(false)
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+
+  user         User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([user_id])
+}
+
+model Category {
+  id         String       @id @default(uuid())
+  user_id    String
+  name       String
+  type       CategoryType
+  color      String? // hex, например "#FF0000"
+  icon       String?
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+
+  user         User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      Budget[]
+
+  @@unique([user_id, name, type])
+  @@index([user_id])
+}
+
+model Transaction {
+  id             String       @id @default(uuid())
+  user_id        String
+  account_id     String
+  category_id    String?
+  type           CategoryType // INCOME / EXPENSE / TRANSFER
+  amount         Decimal
+  currency       CurrencyCode
+  transacted_at  DateTime
+  description    String?
+  isRecurring    Boolean      @default(false)
+  recurring_rule Json?
+  created_at     DateTime     @default(now())
+  updated_at     DateTime     @updatedAt
+
+  user     User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  account  Account   @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [category_id], references: [id], onDelete: SetNull)
+
+  @@index([user_id, transacted_at(sort: Desc)])
+  @@index([account_id])
+  @@index([category_id])
+}
+
+model Budget {
+  id           String     @id @default(uuid())
+  user_id      String
+  category_id  String
+  period_type  PeriodType
+  period_start DateTime
+  period_end   DateTime
+  limit_amount Decimal
+  created_at   DateTime   @default(now())
+  updated_at   DateTime   @updatedAt
+
+  user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, category_id, period_type, period_start, period_end])
+  @@index([user_id])
+}
+
+model Goal {
+  id             String       @id @default(uuid())
+  user_id        String
+  name           String
+  target_amount  Decimal
+  current_amount Decimal      @default(0)
+  currency       CurrencyCode
+  deadline       DateTime?
+  priority       Int          @default(0)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+enum AccountType {
+  CASH
+  CARD
+  BANK
+  BROKERAGE
+  OTHER
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum PeriodType {
+  MONTH
+  YEAR
+  CUSTOM
+}
+
+enum CurrencyCode {
+  USD
+  EUR
+  RUB
+  BYN
+}
