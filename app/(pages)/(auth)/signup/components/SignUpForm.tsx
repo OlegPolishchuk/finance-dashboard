@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useActionState } from 'react';
+import Link from 'next/link';
 
-import { signupAction, SignUpFormState } from '@/app/(pages)/(auth)/actions/singup.action';
-import { InputPassword } from '@/app/(pages)/(auth)/components/InputPassword';
+import { signupAction, SignUpFormState } from '@/app/(pages)/(auth)/signup/actions/singup.action';
 import { Button } from '@/app/components/ui/button';
 import {
   Field,
@@ -15,10 +15,12 @@ import {
   FieldSet,
 } from '@/app/components/ui/field';
 import { Input } from '@/app/components/ui/input';
+import { InputPassword } from '@/app/components/ui/InputPassword';
 import { Label } from '@/app/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/app/components/ui/radio-group';
 import { Spinner } from '@/app/components/ui/spinner';
 import { Typography } from '@/app/components/ui/typography';
+import { ROUTES } from '@/app/constants/constants';
 
 export const SignUpForm = () => {
   const initialState: SignUpFormState = { message: '' };
@@ -26,9 +28,6 @@ export const SignUpForm = () => {
     signupAction,
     initialState,
   );
-
-  console.log('state =>', state);
-  console.log('isPending =>', isPending);
 
   return (
     <form className={'w-full max-w-md'} action={formAction}>
@@ -70,6 +69,15 @@ export const SignUpForm = () => {
             </Field>
           </FieldGroup>
         </FieldSet>
+
+        <div className={'flex items-center justify-between'}>
+          <Typography className={'text-xs'} tag={'span'}>
+            Уже есть аккаунт ?
+          </Typography>
+          <Link className={'text-[#1447E6FF]'} href={ROUTES.login.href}>
+            Войти
+          </Link>
+        </div>
 
         <FieldSeparator />
 

@@ -1,8 +1,13 @@
 'use server';
 
+import { hash } from 'bcrypt';
+import { redirect } from 'next/navigation';
+import { User } from 'next-auth';
 import { z } from 'zod';
 
-import { baseUrl } from '@/app/constants/constants';
+import { ROUTES } from '@/app/constants/constants';
+import { CurrencyCode } from '@/app/generated/prisma/enums';
+import prisma from '@/app/lib/utils/prisma';
 
 export interface SignUpFormState {
   message: string;
@@ -13,8 +18,9 @@ export interface SignUpFormState {
   values?: {
     email?: string;
     password?: string;
-    currency?: string;
+    currency?: CurrencyCode;
   };
+  user?: User;
 }
 
 const signupFormSchema = z.object({
@@ -26,7 +32,7 @@ export const signupAction = async (initialState: SignUpFormState, formData: Form
   const values = {
     email: (formData.get('email') || '') as string,
     password: (formData.get('password') || '') as string,
-    currency: (formData.get('currency') || 'BYN') as string,
+    currency: (formData.get('currency') || 'BYN') as CurrencyCode,
   };
 
   /* Валидация */
@@ -48,17 +54,36 @@ export const signupAction = async (initialState: SignUpFormState, formData: Form
     };
   }
 
-  /* Тут будет делать запрос по api */
-
-  const response = await fetch(`${baseUrl}/api/auth/signup`, {
-    method: 'POST',
-    body: JSON.stringify(values),
+  /* Тут будем работать с бд */
+  const user = await prisma.user.findUnique({
+    where: { email: values.email },
   });
 
-  console.log({ response });
+  if (user) {
+    return {
+      message: 'Error',
+      errors: {
+        email: ['Пользователь с таким email уже существует'],
+      },
+    };
+  }
 
-  return {
-    message: 'Success',
-    values,
-  };
+  try {
+    const hashedPassword = await hash(values.password, 10);
+    const newUser = await prisma.user.create({
+      data: {
+        email: values.email,
+        password: hashedPassword,
+        default_currency: values.currency,
+      },
+    });
+
+    redirect(ROUTES.login.href);
+  } catch (error) {
+    console.log('error in DB =>', error);
+
+    return {
+      message: 'Error => ' + error,
+    };
+  }
 };

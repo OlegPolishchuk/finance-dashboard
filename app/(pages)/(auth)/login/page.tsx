@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { SignUpForm } from '@/app/(pages)/(auth)/signup/components/SignUpForm';
+import { LoginForm } from '@/app/(pages)/(auth)/login/components/LoginForm';
 
 const Page = () => {
   return (
     <main className='flex min-h-screen items-center justify-center'>
-      <SignUpForm />
+      <LoginForm />
     </main>
   );
 };
