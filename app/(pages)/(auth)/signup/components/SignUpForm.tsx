@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useActionState } from 'react';
+import React, { useActionState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { signupAction, SignUpFormState } from '@/app/(pages)/(auth)/signup/actions/singup.action';
 import { Button } from '@/app/components/ui/button';
@@ -23,11 +24,18 @@ import { Typography } from '@/app/components/ui/typography';
 import { ROUTES } from '@/app/constants/constants';
 
 export const SignUpForm = () => {
+  const router = useRouter();
   const initialState: SignUpFormState = { message: '' };
   const [state, formAction, isPending] = useActionState<SignUpFormState, FormData>(
     signupAction,
     initialState,
   );
+
+  useEffect(() => {
+    if (state?.success) {
+      router.push(ROUTES.login.href);
+    }
+  }, [state?.success]);
 
   return (
     <form className={'w-full max-w-md'} action={formAction}>

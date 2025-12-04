@@ -21,6 +21,7 @@ export interface SignUpFormState {
     currency?: CurrencyCode;
   };
   user?: User;
+  success?: boolean;
 }
 
 const signupFormSchema = z.object({
@@ -78,7 +79,11 @@ export const signupAction = async (initialState: SignUpFormState, formData: Form
       },
     });
 
-    redirect(ROUTES.login.href);
+    return {
+      message: 'Success',
+      data: newUser,
+      success: true,
+    };
   } catch (error) {
     console.log('error in DB =>', error);
 
