@@ -4,7 +4,7 @@ import { LoginForm } from '@/app/(pages)/(auth)/login/components/LoginForm';
 
 const Page = () => {
   return (
-    <main className='flex min-h-screen items-center justify-center'>
+    <main className='container flex min-h-screen items-center justify-center'>
       <LoginForm />
     </main>
   );
