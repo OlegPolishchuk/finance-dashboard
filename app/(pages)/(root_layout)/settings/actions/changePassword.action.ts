@@ -1,6 +1,6 @@
 'use server';
 
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { User } from 'next-auth';
 import { z } from 'zod';
 
@@ -91,9 +91,10 @@ export const changePasswordAction = async (
     }
 
     /* Если все верно, обновляем пароль у пользователя в бд */
+    const hashedPassword = await hash(values.newPassword, 10);
     const updatedUser = await prisma.user.update({
       where: { email: values.email },
-      data: { password: values.newPassword },
+      data: { password: hashedPassword },
       omit: { password: true },
     });
 
