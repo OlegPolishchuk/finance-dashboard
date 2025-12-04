@@ -23,8 +23,14 @@ interface Props {
 }
 
 export const MobileNavigation = ({ className }: Props) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Drawer direction={'left'}>
+    <Drawer direction={'left'} open={open} onOpenChange={() => setOpen((prev) => !prev)}>
       <DrawerTrigger className={clsx('md:hidden', className)}>
         <Menu />
       </DrawerTrigger>
@@ -35,7 +41,8 @@ export const MobileNavigation = ({ className }: Props) => {
           <DrawerDescription hidden>This action cannot be undone.</DrawerDescription>
         </DrawerHeader>
 
-        <NavigationList className={'w-full'} />
+        <NavigationList className={'w-full'} clickCallback={handleClose} />
+
         <DrawerFooter>
           <ButtonLogout className={'mb-10'}>Выити</ButtonLogout>
 

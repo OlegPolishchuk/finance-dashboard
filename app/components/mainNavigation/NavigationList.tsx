@@ -18,9 +18,10 @@ import { ROUTES } from '@/app/constants/constants';
 interface Props {
   className?: string;
   listClassName?: string;
+  clickCallback?: () => void;
 }
 
-export const NavigationList = ({ className, listClassName }: Props) => {
+export const NavigationList = ({ className, listClassName, clickCallback }: Props) => {
   const pathname = usePathname();
 
   const itemsClassName =
@@ -29,45 +30,51 @@ export const NavigationList = ({ className, listClassName }: Props) => {
     return pathname === path ? 'text-theme' : '';
   };
 
+  const handleCLick = () => {
+    if (clickCallback) {
+      clickCallback();
+    }
+  };
+
   return (
     <nav className={clsx(className, '')}>
       <ul className={clsx(listClassName, '')}>
-        <Link href={ROUTES.dashboard.href}>
+        <Link href={ROUTES.dashboard.href} onClick={handleCLick}>
           <li className={clsx(itemsClassName, activeClassName('/'))}>
             <LayoutDashboard />
             {ROUTES.dashboard.title}
           </li>
         </Link>
 
-        <Link href={ROUTES.transactions.href}>
+        <Link href={ROUTES.transactions.href} onClick={handleCLick}>
           <li className={clsx(itemsClassName, activeClassName(ROUTES.transactions.href))}>
             <ArrowRightLeft />
             {ROUTES.transactions.title}
           </li>
         </Link>
 
-        <Link href={ROUTES.accounts.href}>
+        <Link href={ROUTES.accounts.href} onClick={handleCLick}>
           <li className={clsx(itemsClassName, activeClassName(ROUTES.accounts.href))}>
             <NotebookTabs />
             {ROUTES.accounts.title}
           </li>
         </Link>
 
-        <Link href={ROUTES.budgets.href}>
+        <Link href={ROUTES.budgets.href} onClick={handleCLick}>
           <li className={clsx(itemsClassName, activeClassName(ROUTES.budgets.href))}>
             <Landmark />
             {ROUTES.budgets.title}
           </li>
         </Link>
 
-        <Link href={ROUTES.goals.href}>
+        <Link href={ROUTES.goals.href} onClick={handleCLick}>
           <li className={clsx(itemsClassName, activeClassName(ROUTES.goals.href))}>
             <Goal />
             {ROUTES.goals.title}
           </li>
         </Link>
 
-        <Link href={ROUTES.settings.href}>
+        <Link href={ROUTES.settings.href} onClick={handleCLick}>
           <li className={clsx(itemsClassName, activeClassName(ROUTES.settings.href))}>
             <Settings />
             {ROUTES.settings.title}

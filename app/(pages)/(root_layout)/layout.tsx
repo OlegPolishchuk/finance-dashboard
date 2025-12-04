@@ -15,16 +15,18 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      <header className={'container flex items-center justify-end gap-8 py-4'}>
-        <MobileNavigation className={'mr-auto'} />
+      <header className={'border-b border-b-sidebar-border'}>
+        <div className={'container flex items-center justify-end gap-8 py-4'}>
+          <MobileNavigation className={'mr-auto'} />
 
-        <Typography>{user.email}</Typography>
-        <ButtonLogout />
+          <Typography>{user.email}</Typography>
+          <ButtonLogout />
+        </div>
       </header>
 
       <div className={'flex'}>
         <DesktopNavigation />
-        <main className={'w-full'}>{children}</main>
+        <main className={'w-full px-6 py-4'}>{children}</main>
       </div>
     </>
   );
