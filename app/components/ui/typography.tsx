@@ -33,7 +33,7 @@ const classes = {
   'headline-2': 'scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0',
   'headline-3': 'scroll-m-20 text-2xl font-semibold tracking-tight',
   'headline-4': 'scroll-m-20 text-xl font-semibold tracking-tight',
-  p: 'leading-7',
+  p: 'text-[16px]',
   blockquote: 'mt-6 border-l-2 pl-6 italic',
   list: 'my-6 ml-6 list-disc [&>li]:mt-2',
   lead: 'text-muted-foreground text-xl',

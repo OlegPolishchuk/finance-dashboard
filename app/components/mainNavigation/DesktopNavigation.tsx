@@ -1,0 +1,22 @@
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
+
+import { ButtonLogout } from '@/app/components/buttonLogout/ButtonLogout';
+import { NavigationList } from '@/app/components/mainNavigation/NavigationList';
+
+export const DesktopNavigation = () => {
+  return (
+    <aside
+      className={twMerge(
+        'hidden md:block',
+        'h-[calc(100vh-56px)] w-[300px] min-w-[300px] bg-background',
+      )}
+    >
+      <div className={'fixed top-[56px] bottom-0 flex w-[300px] flex-col'}>
+        <NavigationList />
+
+        <ButtonLogout className={'mt-auto mb-10 ml-4'}>Выити</ButtonLogout>
+      </div>
+    </aside>
+  );
+};

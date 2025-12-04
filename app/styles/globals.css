@@ -41,6 +41,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+    --color-theme: #ea7c24;
 }
 
 :root {
@@ -119,4 +121,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+    .container {
+        width: 96% !important;
+        margin: 0 auto;
+    }
 }
