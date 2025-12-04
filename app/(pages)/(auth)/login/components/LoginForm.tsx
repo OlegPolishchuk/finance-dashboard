@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useActionState, useEffect, useState } from 'react';
+import React, { startTransition, useActionState, useEffect, useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -19,12 +19,15 @@ export const LoginForm = () => {
   const router = useRouter();
 
   const [authError, setAuthError] = useState('');
+  const [pending, startTransition] = useTransition();
 
   const initialState: SignUpFormState = { message: '' };
   const [state, formAction, isPending] = useActionState<LoginFormState, FormData>(
     loginAction,
     initialState,
   );
+
+  const isFullPending = isPending || pending;
 
   useEffect(() => {
     if (state.success) {
@@ -49,7 +52,7 @@ export const LoginForm = () => {
         }
       };
 
-      signInUser();
+      startTransition(signInUser);
     }
   }, [state]);
 
@@ -69,7 +72,7 @@ export const LoginForm = () => {
                 name={'email'}
                 placeholder='Example@mail.com'
                 defaultValue={state.values?.email ?? ''}
-                disabled={isPending}
+                disabled={isFullPending}
                 required
               />
               {state.errors?.email && (
@@ -84,7 +87,7 @@ export const LoginForm = () => {
                 name={'password'}
                 placeholder='qwerty'
                 defaultValue={state.values?.password ?? ''}
-                disabled={isPending}
+                disabled={isFullPending}
                 required
               />
               {state.errors?.password && (
@@ -108,9 +111,9 @@ export const LoginForm = () => {
         {authError && <p className={'text-sm text-destructive'}>{authError}</p>}
 
         <Field orientation='horizontal'>
-          <Button type='submit'>
+          <Button type='submit' disabled={isFullPending}>
             Войти
-            {isPending && <Spinner />}
+            {isFullPending && <Spinner />}
           </Button>
         </Field>
       </FieldGroup>
