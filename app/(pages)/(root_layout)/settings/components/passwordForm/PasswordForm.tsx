@@ -47,10 +47,10 @@ export const PasswordForm = ({ user, className }: Props) => {
           <FieldGroup>
             <FieldDescription>Изменить пароль:</FieldDescription>
             <Field>
-              <FieldLabel htmlFor='setting_password'>Старый пароль:</FieldLabel>
+              <FieldLabel htmlFor='settings-password-current'>Старый пароль:</FieldLabel>
 
               <InputPassword
-                id='setting_password'
+                id='settings-password-current'
                 name={'password'}
                 placeholder='qwerty'
                 disabled={isPending}
@@ -63,10 +63,10 @@ export const PasswordForm = ({ user, className }: Props) => {
             </Field>
 
             <Field>
-              <FieldLabel htmlFor='setting_new_password'>Новый пароль:</FieldLabel>
+              <FieldLabel htmlFor='settings-password-new'>Новый пароль:</FieldLabel>
 
               <InputPassword
-                id='setting_new_password'
+                id='settings-password-new'
                 name={'newPassword'}
                 placeholder='qwerty'
                 defaultValue={state.values?.newPassword ?? ''}

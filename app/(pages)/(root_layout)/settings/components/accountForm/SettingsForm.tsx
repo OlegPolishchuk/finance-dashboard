@@ -82,18 +82,18 @@ export const SettingsForm = ({ user, className }: Props) => {
                   onValueChange={handleChangeCurrency}
                 >
                   <div className='flex items-center space-x-2'>
-                    <RadioGroupItem value='BYN' id='BYN' />
-                    <Label htmlFor='BYN'>BYN</Label>
+                    <RadioGroupItem value='BYN' id='settings-currency-BYN' />
+                    <Label htmlFor='settings-currency-BYN'>BYN</Label>
                   </div>
 
                   <div className='flex items-center space-x-2'>
-                    <RadioGroupItem value='RUB' id='RUB' />
-                    <Label htmlFor='RUB'>RUB</Label>
+                    <RadioGroupItem value='RUB' id='settings-currency-RUB' />
+                    <Label htmlFor='settings-currency-RUB'>RUB</Label>
                   </div>
 
                   <div className='flex items-center space-x-2'>
-                    <RadioGroupItem value='USD' id='USD' />
-                    <Label htmlFor='USD'>USD</Label>
+                    <RadioGroupItem value='USD' id='settings-currency-USD' />
+                    <Label htmlFor='settings-currency-USD'>USD</Label>
                   </div>
                 </RadioGroup>
               </FieldGroup>

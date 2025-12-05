@@ -1,3 +1,5 @@
+import { transformToOptions } from '@/app/lib/utils';
+
 export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
 
 export const ROUTES = {
@@ -12,3 +14,13 @@ export const ROUTES = {
   goals: { title: 'Цели', href: '/goals' },
   settings: { title: 'Настройки', href: '/settings' },
 };
+
+export const DEFAULT_DATE_FORMAT = 'MM/dd/yyyy';
+
+const CATEGORY_TYPE = {
+  INCOME: 'Доходы',
+  EXPENSE: 'Расходы',
+  TRANSFER: 'Переводы',
+};
+
+export const categoryOptions = transformToOptions(CATEGORY_TYPE);

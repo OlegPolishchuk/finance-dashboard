@@ -9,7 +9,7 @@ export const DesktopNavigation = () => {
     <aside
       className={twMerge(
         'hidden md:block',
-        'h-[calc(100vh-56px)] w-[300px] min-w-[300px] bg-background',
+        'h-[calc(100vh-57px)] w-[300px] min-w-[300px] bg-background',
         'border-r border-r-sidebar-border',
       )}
     >
