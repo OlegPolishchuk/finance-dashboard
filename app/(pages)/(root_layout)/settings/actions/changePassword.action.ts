@@ -39,8 +39,6 @@ export const changePasswordAction = async (
     newPassword: (formData.get('newPassword') || '') as string,
   };
 
-  console.log('initialState =>', initialState);
-
   /* Валидация */
   const result = changePasswordSchema.safeParse({
     email: values.email,

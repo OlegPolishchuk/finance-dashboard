@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonLogout } from '@/app/components/buttonLogout/ButtonLogout';
+import { ButtonLogout } from '@/app/components/buttons/buttonLogout/ButtonLogout';
 import { DesktopNavigation } from '@/app/components/mainNavigation/DesktopNavigation';
 import { MobileNavigation } from '@/app/components/mainNavigation/MobileNavigation';
 import { Typography } from '@/app/components/ui/typography';

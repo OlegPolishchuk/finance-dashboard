@@ -6,3 +6,10 @@ export interface Option {
 }
 
 export type UserWithoutPassword = Omit<User, 'password'>;
+
+export interface ActionResponse<T> {
+  message: string;
+  values?: Partial<T>;
+  errors?: Partial<Record<keyof T, string[]>>;
+  success: boolean;
+}

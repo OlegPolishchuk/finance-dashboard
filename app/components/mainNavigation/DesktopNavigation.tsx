@@ -1,7 +1,7 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-import { ButtonLogout } from '@/app/components/buttonLogout/ButtonLogout';
+import { ButtonLogout } from '@/app/components/buttons/buttonLogout/ButtonLogout';
 import { NavigationList } from '@/app/components/mainNavigation/NavigationList';
 
 export const DesktopNavigation = () => {

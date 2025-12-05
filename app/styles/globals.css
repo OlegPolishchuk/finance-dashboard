@@ -42,7 +42,9 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-    --color-theme: #ea7c24;
+  --color-theme: #ea7c24;
+  --color-theme-hover: #ed9c57;
+  --color-white: #fff;
 }
 
 :root {

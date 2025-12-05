@@ -4,7 +4,7 @@ import React from 'react';
 import { clsx } from 'clsx';
 import { Menu } from 'lucide-react';
 
-import { ButtonLogout } from '@/app/components/buttonLogout/ButtonLogout';
+import { ButtonLogout } from '@/app/components/buttons/buttonLogout/ButtonLogout';
 import { NavigationList } from '@/app/components/mainNavigation/NavigationList';
 import { Button } from '@/app/components/ui/button';
 import {
