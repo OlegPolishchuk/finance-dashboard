@@ -4,8 +4,8 @@ import { revalidatePath } from 'next/cache';
 
 import { ROUTES } from '@/app/constants/constants';
 import { Category } from '@/app/generated/prisma/client';
-import { deleteCategory } from '@/app/lib/actions/categories.action';
-import { ActionResponse } from '@/app/lib/types/types';
+import { deleteCategory } from '@/app/services/categorises.service';
+import { ActionResponse } from '@/app/types/types';
 
 export type DeleteCategoryFormState = ActionResponse<Category>;
 

@@ -14,8 +14,8 @@ import {
 } from '@/app/components/ui/table';
 import { Typography } from '@/app/components/ui/typography';
 import { DEFAULT_DATE_FORMAT } from '@/app/constants/constants';
-import { fetchCategories } from '@/app/lib/actions/categories.action';
-import { getUserSession } from '@/app/lib/actions/user.action';
+import { fetchCategories } from '@/app/services/categorises.service';
+import { getUserSession } from '@/app/services/user.service';
 
 export const CategoryTabContent = async () => {
   const user = await getUserSession();

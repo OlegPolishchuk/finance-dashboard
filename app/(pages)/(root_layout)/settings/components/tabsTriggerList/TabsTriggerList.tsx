@@ -4,7 +4,7 @@ import React from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { TabsList, TabsTrigger } from '@/app/components/ui/tabs';
-import { Option } from '@/app/lib/types/types';
+import { Option } from '@/app/types/types';
 
 interface Props {
   className?: string;

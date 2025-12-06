@@ -1,13 +1,13 @@
 'use server';
 
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import { ROUTES } from '@/app/constants/constants';
 import { CategoryType } from '@/app/generated/prisma/enums';
-import { getUserSession } from '@/app/lib/actions/user.action';
-import { ActionResponse } from '@/app/lib/types/types';
 import prisma from '@/app/lib/utils/prisma';
+import { getUserSession } from '@/app/services/user.service';
+import { ActionResponse } from '@/app/types/types';
 
 interface CreateCategoryFormState {
   name?: string;

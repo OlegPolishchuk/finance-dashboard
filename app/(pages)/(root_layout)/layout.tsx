@@ -4,8 +4,8 @@ import { ButtonLogout } from '@/app/components/buttons/buttonLogout/ButtonLogout
 import { DesktopNavigation } from '@/app/components/mainNavigation/DesktopNavigation';
 import { MobileNavigation } from '@/app/components/mainNavigation/MobileNavigation';
 import { Typography } from '@/app/components/ui/typography';
-import { getUserById } from '@/app/lib/actions/user.action';
 import { getSession } from '@/app/lib/utils/auth_utils';
+import { getUserById } from '@/app/services/user.service';
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const session = await getSession();

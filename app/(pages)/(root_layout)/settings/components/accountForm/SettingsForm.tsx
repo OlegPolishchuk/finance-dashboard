@@ -3,26 +3,20 @@
 import React, { startTransition, useActionState } from 'react';
 import { clsx } from 'clsx';
 
-import { loginAction, LoginFormState } from '@/app/(pages)/(auth)/login/actions/login.action';
-import { SignUpFormState } from '@/app/(pages)/(auth)/signup/actions/singup.action';
 import {
   settingsAction,
   SettingsFormState,
 } from '@/app/(pages)/(root_layout)/settings/actions/settings.action';
-import { Button } from '@/app/components/ui/button';
 import {
   Field,
   FieldDescription,
   FieldGroup,
-  FieldLabel,
   FieldSeparator,
   FieldSet,
 } from '@/app/components/ui/field';
 import { Input } from '@/app/components/ui/input';
-import { InputPassword } from '@/app/components/ui/InputPassword';
 import { Label } from '@/app/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/app/components/ui/radio-group';
-import { Spinner } from '@/app/components/ui/spinner';
 import { CurrencyCode, User } from '@/app/generated/prisma/client';
 
 interface Props {

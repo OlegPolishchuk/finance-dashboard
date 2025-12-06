@@ -1,11 +1,8 @@
 'use server';
 
-import { hash } from 'bcrypt';
-import { redirect } from 'next/navigation';
 import { User } from 'next-auth';
 import { z } from 'zod';
 
-import { ROUTES } from '@/app/constants/constants';
 import { CurrencyCode } from '@/app/generated/prisma/enums';
 import prisma from '@/app/lib/utils/prisma';
 

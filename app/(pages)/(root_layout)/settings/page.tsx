@@ -8,7 +8,7 @@ import { PasswordFormSkeleton } from '@/app/(pages)/(root_layout)/settings/compo
 import { TabsTriggerList } from '@/app/(pages)/(root_layout)/settings/components/tabsTriggerList/TabsTriggerList';
 import { PageTitle } from '@/app/components/pageTitle/PageTitle';
 import { Tabs, TabsContent } from '@/app/components/ui/tabs';
-import { getUserSession } from '@/app/lib/actions/user.action';
+import { getUserSession } from '@/app/services/user.service';
 
 const TABS = {
   account: { value: 'account', label: 'Аккаунт' },
