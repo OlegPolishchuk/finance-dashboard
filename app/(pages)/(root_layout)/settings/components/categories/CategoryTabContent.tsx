@@ -1,8 +1,10 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { revalidatePath } from 'next/cache';
 
 import { AddNewCategoryBtn } from '@/app/(pages)/(root_layout)/settings/components/addNewCategoryBtn/AddNewCategoryBtn';
 import { CategoryListActions } from '@/app/(pages)/(root_layout)/settings/components/categoryListActions/CategoryListActions';
+import { Paginator } from '@/app/components/paginator/paginator';
 import {
   Table,
   TableBody,
@@ -13,15 +15,26 @@ import {
   TableRow,
 } from '@/app/components/ui/table';
 import { Typography } from '@/app/components/ui/typography';
-import { DEFAULT_DATE_FORMAT } from '@/app/constants/constants';
+import { DEFAULT_CATEGORIES_LIMIT, DEFAULT_DATE_FORMAT, ROUTES } from '@/app/constants/constants';
+import { getTotalPagesCount } from '@/app/lib/utils';
 import { fetchCategories } from '@/app/services/categorises.service';
 import { getUserSession } from '@/app/services/user.service';
+import { PaginatedRequestFields } from '@/app/types/types';
 
-export const CategoryTabContent = async () => {
+interface Props {
+  searchParams: Promise<PaginatedRequestFields>;
+}
+
+export const CategoryTabContent = async ({ searchParams }: Props) => {
   const user = await getUserSession();
   if (!user) return;
 
-  const categories = await fetchCategories(user.id);
+  const params = await searchParams;
+  const page = params.page ?? 1;
+  const limit = params.limit || DEFAULT_CATEGORIES_LIMIT;
+
+  const { data: categories, totalCount } = await fetchCategories(user.id, { page, limit });
+  const totalPages = getTotalPagesCount({ totalCount, limit });
 
   return (
     <div className={'flex flex-col gap-8'}>
@@ -68,6 +81,8 @@ export const CategoryTabContent = async () => {
           ))}
         </TableBody>
       </Table>
+
+      <Paginator currentPage={page} totalPages={totalPages} limit={limit} />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { TabsTriggerList } from '@/app/(pages)/(root_layout)/settings/components
 import { PageTitle } from '@/app/components/pageTitle/PageTitle';
 import { Tabs, TabsContent } from '@/app/components/ui/tabs';
 import { getUserSession } from '@/app/services/user.service';
+import { PaginatedRequestFields } from '@/app/types/types';
 
 const TABS = {
   account: { value: 'account', label: 'Аккаунт' },
@@ -18,11 +19,12 @@ const TABS = {
 type TabKey = keyof typeof TABS;
 
 interface UrlParams {
-  searchParams: { tab: string };
+  searchParams: Promise<PaginatedRequestFields & { tab: string }>;
 }
 
 const Page = async ({ searchParams }: UrlParams) => {
   const user = await getUserSession();
+
   const { tab } = await searchParams;
   const tabKey = (Array.isArray(tab) ? tab[0] : tab) as string | undefined;
   const activeTabKey: TabKey = tabKey && tabKey in TABS ? (tabKey as TabKey) : 'account';
@@ -48,7 +50,7 @@ const Page = async ({ searchParams }: UrlParams) => {
         </TabsContent>
 
         <TabsContent value={TABS.categories.value}>
-          <CategoryTabContent />
+          <CategoryTabContent searchParams={searchParams} />
         </TabsContent>
       </Tabs>
     </div>

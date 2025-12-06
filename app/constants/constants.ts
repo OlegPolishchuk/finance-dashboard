@@ -16,6 +16,7 @@ export const ROUTES = {
 };
 
 export const DEFAULT_DATE_FORMAT = 'MM/dd/yyyy';
+export const DEFAULT_CATEGORIES_LIMIT = 10;
 
 const CATEGORY_TYPE = {
   INCOME: 'Доходы',

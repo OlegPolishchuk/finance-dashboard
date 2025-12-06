@@ -13,3 +13,13 @@ export interface ActionResponse<T> {
   errors?: Partial<Record<keyof T, string[]>>;
   success: boolean;
 }
+
+export interface PaginatedRequestFields {
+  page: number;
+  limit: number;
+}
+
+export interface ListResponse<T> extends PaginatedRequestFields {
+  totalCount: number;
+  data: T[];
+}
