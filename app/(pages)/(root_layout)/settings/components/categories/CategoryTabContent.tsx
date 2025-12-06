@@ -1,9 +1,9 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { revalidatePath } from 'next/cache';
 
 import { AddNewCategoryBtn } from '@/app/(pages)/(root_layout)/settings/components/addNewCategoryBtn/AddNewCategoryBtn';
-import { CategoryListActions } from '@/app/(pages)/(root_layout)/settings/components/categoryListActions/CategoryListActions';
+import { DeleteCategoryModal } from '@/app/(pages)/(root_layout)/settings/components/deleteCategoryModal/DeleteCategoryModal';
+import { EditCategoryModal } from '@/app/(pages)/(root_layout)/settings/components/editCategoryModal/EditCategoryModal';
 import { Paginator } from '@/app/components/paginator/paginator';
 import {
   Table,
@@ -15,7 +15,7 @@ import {
   TableRow,
 } from '@/app/components/ui/table';
 import { Typography } from '@/app/components/ui/typography';
-import { DEFAULT_CATEGORIES_LIMIT, DEFAULT_DATE_FORMAT, ROUTES } from '@/app/constants/constants';
+import { DEFAULT_CATEGORIES_LIMIT, DEFAULT_DATE_FORMAT } from '@/app/constants/constants';
 import { getTotalPagesCount } from '@/app/lib/utils';
 import { fetchCategories } from '@/app/services/categorises.service';
 import { getUserSession } from '@/app/services/user.service';
@@ -75,7 +75,10 @@ export const CategoryTabContent = async ({ searchParams }: Props) => {
                 {format(category.created_at, DEFAULT_DATE_FORMAT)}
               </TableCell>
               <TableCell>
-                <CategoryListActions category={category} />
+                <div className={'flex items-center justify-end gap-2'}>
+                  <EditCategoryModal category={category} />
+                  <DeleteCategoryModal category={category} />
+                </div>
               </TableCell>
             </TableRow>
           ))}
