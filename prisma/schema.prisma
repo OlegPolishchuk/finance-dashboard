@@ -33,7 +33,7 @@ model Account {
   name            String
   type            AccountType
   currency        CurrencyCode
-  initial_balance Decimal      @default(0)
+  initial_balance Float        @default(0)
   is_archived     Boolean      @default(false)
   created_at      DateTime     @default(now())
   updated_at      DateTime     @updatedAt

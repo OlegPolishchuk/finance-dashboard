@@ -25,3 +25,13 @@ const CATEGORY_TYPE = {
 };
 
 export const categoryOptions = transformToOptions(CATEGORY_TYPE);
+
+const ACCOUNT_TYPE = {
+  CASH: 'Наличные',
+  CARD: 'Карта',
+  BANK: 'Счет в банке',
+  BROKERAGE: 'Брокерский счет',
+  OTHER: 'Другое',
+};
+
+export const accountOptions = transformToOptions(ACCOUNT_TYPE);
